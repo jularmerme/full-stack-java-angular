@@ -12,7 +12,12 @@
               <h1>{{ product.name }}</h1>
             </a>
             <div class="price">{{ product.unitPrice | currency : "USD" }}</div>
-            <a href="#" class="primary-btn">Add to cart</a>
+            <button
+              class="btn btn-primary btn-sm mt-2"
+              (click)="addToCart(product)"
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -22,32 +27,29 @@
         No Products were found
       </div>
 
+      <!-- Pagination -->
       <div class="footer-pagination">
         <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-3">
-            <div class="items">
-              <label>Item per page</label>
-              <select>
-                <option>10</option>
-                <option>20</option>
-                <option>30</option>
-                <option>40</option>
-              </select>
-            </div>
+          <div class="col-md-9" style="padding-left: 30%">
+            <ngb-pagination
+              [(page)]="thePageNumber"
+              [pageSize]="thePageSize"
+              [collectionSize]="theTotalElements"
+              [maxSize]="5"
+              [boundaryLinks]="true"
+              (pageChange)="listProducts()"
+            >
+            </ngb-pagination>
           </div>
-          <div class="col-md-2">
-            <div class="number">1 - 10 of 100</div>
-          </div>
-          <div class="col-md-1">
-            <div class="arrows">
-              <a href="#"
-                ><i class="fa fa-angle-left" aria-hidden="true"></i
-              ></a>
-              <a href="#"
-                ><i class="fa fa-angle-right" aria-hidden="true"></i
-              ></a>
-            </div>
+          <div class="col-md-3 mt-2" style="text-align: right">
+            <span class="mr-2">Page Size: </span>
+            <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+              <option value="2">2</option>
+              <option selected="true">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
           </div>
         </div>
       </div>
